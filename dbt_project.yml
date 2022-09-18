@@ -36,3 +36,12 @@ models:
     marts:
         core:
             +materialized: table
+
+seeds:
+    jaffle_shop:
+        dbt_testignore_seed:
+            +schema: dbt_testignore
+            +column_types:
+                error_key: STRING
+                test_name: STRING
+                ignore_reason: STRING

@@ -8,7 +8,10 @@ models:
         description: The primary key for customers
         tests:
           - unique
-          - not_null
+          - not_null:
+              where: > 
+                to_hex(md5(cast(coalesce(cast(first_name as STRING), '') || '-' || coalesce(cast(last_name as STRING), '') as STRING))) not in 
+                (select error_key from `optimal-signer-324414.dbt_testignore_demo_dev_dbt_testignore.dbt_testignore`)
   - name: stg_orders
     description: Staged order data from our jaffle shop app
     columns: 

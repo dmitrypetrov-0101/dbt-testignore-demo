@@ -32,14 +32,14 @@ where:          Argument for providing additional filtering conditions in WHERE 
     {% set store_failures_table = "" %}
 {%- endif %}
 
-select 
-        {{ dbt_utils.surrogate_key(selected_columns) }} as error_key,
+SELECT 
+        {{ dbt_utils.surrogate_key(selected_columns) }} AS error_key,
         {{ column_name }},
         {%- for selected_column in selected_columns %}
         {{ selected_column }}{% if not loop.last %},{%- endif -%}
         {% endfor %}
-from    {{ model }}
-where   {{ column_name }} is null
+FROM    {{ model }}
+WHERE   {{ column_name }} IS NULL
         AND {{ dbt_utils.surrogate_key(selected_columns) }} NOT IN (
                 SELECT error_key FROM {{ ref('dbt_testignore') }}
                 WHERE test_name in ('{{ store_failures_table }}')

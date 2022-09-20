@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: test_negative_order_amount
+    description: model with errors and dummy column with null values
+    columns:
+      - name: validation_col
+        description: dummy column with NULL values
+        tests:
+          - not_null

@@ -36,6 +36,10 @@ models:
     marts:
         core:
             +materialized: table
+    test_models:
+        +materialized: table
+        +tags: ['singular_tests']
+        +schema: test_models
 
 seeds:
     jaffle_shop:

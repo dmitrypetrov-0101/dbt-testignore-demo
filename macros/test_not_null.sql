@@ -12,24 +12,24 @@ where:          Argument for providing additional filtering conditions in WHERE 
 
 {#- Prepare variables -#}
 
-{#- Upper case for all input parameters -#}
+{#- Lower case for all input parameters and tested model field names -#}
 
-{%- set column_name = column_name.upper() -%}
-{%- set key_columns_upper = [] -%}
+{%- set column_name = column_name.lower() -%}
+{%- set key_columns_lower = [] -%}
 {%- for key_col in key_columns -%}
-    {%- do key_columns_upper.append(key_col.upper()) -%}
+    {%- do key_columns_lower.append(key_col.lower()) -%}
 {%- endfor -%}
 
 {#- Columns to generate error id: use key_columns list or all columns of the model -#}
 {%- set model_columns = adapter.get_columns_in_relation(model) -%}
 {%- set selected_columns = [] -%}
-{%- if key_columns_upper|length != 0 -%}
-    {%- for column in model_columns if column['name'].upper() in key_columns_upper -%}
-        {%- do selected_columns.append(column['name'].upper()) -%}
+{%- if key_columns_lower|length != 0 -%}
+    {%- for column in model_columns if column['name'].lower() in key_columns_lower -%}
+        {%- do selected_columns.append(column['name'].lower()) -%}
     {%- endfor -%}
 {%- else -%}
-    {%- for column in model_columns if column['name'].upper() != column_name -%}
-        {%- do selected_columns.append(column['name'].upper()) -%}
+    {%- for column in model_columns if column['name'].lower() != column_name -%}
+        {%- do selected_columns.append(column['name'].lower()) -%}
     {%- endfor -%}
 {%- endif -%}
 
